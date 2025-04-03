@@ -1,4 +1,4 @@
-# LVGL + LGFX for MakerFabs 3.5" Parallel TFT ESP32-S2 and S3
+# LVGL + LGFX for MakerFabs 3.5" Parallel TFT ESP32-S3
 
 A simple project that puts all the LVGL demos together in a simple esp-idf project with the LovyanGFX driver
 
@@ -18,7 +18,7 @@ git clone https://github.com/cpp2go/makerfabs-parallel-tft-lvgl-lgfx.git --recur
 
 ## Setup
 
-Tested with ESP-IDF v5.2.1. Other versions may work as well.
+Tested with ESP-IDF v5.4.1. Other versions may work as well.
 
 Make sure you have esp-idf exported, e.g.:
 
