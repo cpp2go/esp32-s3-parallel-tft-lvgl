@@ -14,11 +14,11 @@
 class LGFX : public lgfx::LGFX_Device
 {
   static constexpr int I2C_PORT_NUM = I2C_NUM_0;
-  static constexpr int I2C_PIN_SDA = 38;
-  static constexpr int I2C_PIN_SCL = 39;
-  static constexpr int I2C_PIN_INT = 40;
+  static constexpr int I2C_PIN_SDA = 39;
+  static constexpr int I2C_PIN_SCL = 40;
+  static constexpr int I2C_PIN_INT = 38;
 
-  lgfx::Bus_Parallel16 _bus_instance;
+  lgfx::Bus_Parallel8 _bus_instance;
   lgfx::Panel_ILI9488 _panel_instance;
   lgfx::Light_PWM     _light_instance;
   lgfx::ITouch*  _touch_instance_ptr = nullptr;
@@ -73,42 +73,50 @@ public:
     {
       auto cfg = _bus_instance.config();
 
-      cfg.freq_write = 40000000;
-      cfg.pin_wr = 35;
-      cfg.pin_rd = 48;
-      cfg.pin_rs = 36;
+      cfg.freq_write = 16000000;
+      cfg.pin_wr = 9;
+      cfg.pin_rd = -1;
+      cfg.pin_rs = 46;
 
-      cfg.pin_d0 = 47;
-      cfg.pin_d1 = 21;
-      cfg.pin_d2 = 14;
+      cfg.pin_d0 = 10;
+      cfg.pin_d1 = 11;
+      cfg.pin_d2 = 12;
       cfg.pin_d3 = 13;
-      cfg.pin_d4 = 12;
-      cfg.pin_d5 = 11;
-      cfg.pin_d6 = 10;
-      cfg.pin_d7 = 9;
-      cfg.pin_d8 = 3;
-      cfg.pin_d9 = 8;
-      cfg.pin_d10 = 16;
-      cfg.pin_d11 = 15;
-      cfg.pin_d12 = 7;
-      cfg.pin_d13 = 6;
-      cfg.pin_d14 = 5;
-      cfg.pin_d15 = 4;
+      cfg.pin_d4 = 14;
+      cfg.pin_d5 = 21;
+      cfg.pin_d6 = 47;
+      cfg.pin_d7 = 48;
+      //cfg.pin_d8 = 3;
+      //cfg.pin_d9 = 8;
+      //cfg.pin_d10 = 16;
+      //cfg.pin_d11 = 15;
+      //cfg.pin_d12 = 7;
+      //cfg.pin_d13 = 6;
+      //cfg.pin_d14 = 5;
+      //cfg.pin_d15 = 4;
       _bus_instance.config(cfg);
       _panel_instance.bus(&_bus_instance);
     }
 
     {
       auto cfg = _panel_instance.config();
-      cfg.pin_cs          =    37;
+
+      cfg.pin_cs          =    3;
       cfg.pin_rst         =    -1;
       cfg.pin_busy        =    -1;
       cfg.offset_rotation =     0;
-      cfg.readable        =  true;
-      cfg.invert          = false;
-      cfg.rgb_order       = false;
-      cfg.dlen_16bit      =  true;
-      cfg.bus_shared      = false;
+
+      cfg.panel_width = 320;                  // 屏幕宽度
+      cfg.panel_height = 480;                 // 屏幕高度
+      cfg.offset_x = 0;                       // X 偏移
+      cfg.offset_y = 0;                       // Y 偏移
+      cfg.dummy_read_pixel = 8;               // 像素读取时的 dummy cycle 数
+      cfg.dummy_read_bits = 1;                // 读取时的 dummy bit 数
+      cfg.readable = false;                    // 是否允许读取
+      cfg.invert = false;                     // 是否反转显示
+      cfg.rgb_order = false;                  // RGB/BGR 顺序
+      cfg.dlen_16bit = false;                 // 使用 16-bit 数据长度
+      cfg.bus_shared = false;                 // 总线是否共享
 
       _panel_instance.config(cfg);
     }
@@ -125,5 +133,7 @@ public:
       _panel_instance.light(&_light_instance);
     }
     setPanel(&_panel_instance);
+
+    //setColorDepth(32); 
   }
 };
