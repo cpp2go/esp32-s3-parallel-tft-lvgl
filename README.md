@@ -13,7 +13,7 @@ A simple project that puts all the LVGL demos together in a simple esp-idf proje
 **You must clone this repo recursively**
 
 ```sh
-git clone https://github.com/radiosound-com/makerfabs-parallel-tft-lvgl-lgfx --recursive
+git clone https://github.com/cpp2go/makerfabs-parallel-tft-lvgl-lgfx.git --recursive
 ```
 
 ## Setup
