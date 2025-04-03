@@ -29,12 +29,6 @@ source ~/esp/esp-idf/export.sh
 Depending on which board you have:
 
 ```sh
-idf.py set-target esp32s2
-```
-
-or
-
-```sh
 idf.py set-target esp32s3
 ```
 
